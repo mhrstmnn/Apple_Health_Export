@@ -1,0 +1,8 @@
+# Python
+/venv/**
+/__pycache__/**
+
+# Scripts
+/data/**
+!/data/.gitkeep
+/out/**
