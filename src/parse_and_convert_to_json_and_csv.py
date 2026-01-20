@@ -4,7 +4,12 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 
-from .globals import DATA_FILE_PATH, get_argparse_description, get_output_file_path
+from .globals import (
+    DATA_FILE_PATH,
+    JSON_INDENT,
+    get_argparse_description,
+    get_output_file_path,
+)
 
 
 def parse_health_export() -> tuple[list[dict[str, str]], list[str]]:
@@ -21,12 +26,12 @@ def parse_health_export() -> tuple[list[dict[str, str]], list[str]]:
 
 
 def print_all_record_types(record_types: list[str]):
-    print(json.dumps(record_types, indent=4))
+    print(json.dumps(record_types, indent=JSON_INDENT))
 
 
 def write_all_records_json_file(records: list[dict[str, str]]):
     with open(get_output_file_path("all_records", "json", "jq"), "w") as json_file:
-        json_file.write(json.dumps(records, indent=4) + "\n")
+        json_file.write(json.dumps(records, indent=JSON_INDENT) + "\n")
 
 
 def write_all_records_txt_file(records: list[dict[str, str]]):

@@ -48,7 +48,10 @@ def print_all_record_types(record_types: list[str]):
         print(f"{count + 1}: {record_type} -> {type_identifier_to_name(record_type)}")
 
 
-def write_all_records_excel_file(records_df: pd.DataFrame, rearranged: bool = False):
+def write_all_records_excel_file(
+    records_df: pd.DataFrame,
+    rearranged: bool = False,
+):
     filename = "all_records"
     if rearranged:
         filename += "_rearranged"
@@ -58,7 +61,8 @@ def write_all_records_excel_file(records_df: pd.DataFrame, rearranged: bool = Fa
 
 
 def write_blood_pressure_excel_file(
-    rearranged_records_df: pd.DataFrame, reduce_output: bool
+    rearranged_records_df: pd.DataFrame,
+    reduce_output: bool,
 ):
     blood_pressure_systolic_df = rearranged_records_df.query(
         'type == "HKQuantityTypeIdentifierBloodPressureSystolic"'
@@ -91,7 +95,8 @@ def write_blood_pressure_excel_file(
 
 
 def write_all_other_excel_files(
-    record_types: list[str], rearranged_records_df: pd.DataFrame
+    record_types: list[str],
+    rearranged_records_df: pd.DataFrame,
 ):
     # Remove blood pressure record types
     for record_type in [

@@ -1,6 +1,7 @@
 import os
 
 DATA_FILE_PATH = os.path.join(".", "data", "Export.xml")
+JSON_INDENT = 4
 
 
 def get_output_file_path(
