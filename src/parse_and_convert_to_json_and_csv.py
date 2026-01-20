@@ -7,8 +7,8 @@ import xml.etree.ElementTree as ET
 from .globals import DATA_FILE_PATH, get_argparse_description, get_output_file_path
 
 
-def parse_health_export() -> tuple[list[dict], list[str]]:
-    records: list[dict] = []
+def parse_health_export() -> tuple[list[dict[str, str]], list[str]]:
+    records: list[dict[str, str]] = []
     record_types: list[str] = []
 
     for _, elem in ET.iterparse(DATA_FILE_PATH):
@@ -24,12 +24,12 @@ def print_all_record_types(record_types: list[str]):
     print(json.dumps(record_types, indent=4))
 
 
-def write_all_records_json_file(records: list[dict]):
+def write_all_records_json_file(records: list[dict[str, str]]):
     with open(get_output_file_path("all_records", "json", "jq"), "w") as json_file:
         json_file.write(json.dumps(records, indent=4) + "\n")
 
 
-def write_all_records_txt_file(records: list[dict]):
+def write_all_records_txt_file(records: list[dict[str, str]]):
     with open(get_output_file_path("all_records", "txt", "jq"), "w") as txt_file:
         for record in records:
             txt_file.write(json.dumps(record) + "\n")

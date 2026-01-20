@@ -17,9 +17,10 @@ def parse_health_export() -> tuple[pd.DataFrame, list[str]]:
     records_df = pd.DataFrame(records)
 
     date_columns = ["creationDate", "startDate", "endDate"]
-    records_df[date_columns] = records_df[date_columns].apply(
-        lambda date_column: pd.to_datetime(date_column).dt.tz_localize(None)
-    )
+    for date_column in date_columns:
+        records_df[date_column] = pd.to_datetime(
+            records_df[date_column]
+        ).dt.tz_localize(None)
 
     record_types: list[str] = records_df["type"].unique().tolist()
 
@@ -52,13 +53,13 @@ def print_all_record_types(record_types: list[str]):
         )
 
 
-def write_all_records_excel_file(records_df: pd.DataFrame, rearranged=False):
+def write_all_records_excel_file(records_df: pd.DataFrame, rearranged: bool = False):
     filename = "all_records"
     if rearranged:
         filename += "_rearranged"
     file_path = get_output_file_path(filename, "xlsx")
     print(f'Write all records Excel file to: "{file_path}"')
-    records_df.to_excel(file_path)
+    records_df.to_excel(file_path)  # pyright: ignore[reportUnknownMemberType]
 
 
 def write_blood_pressure_excel_file(
@@ -91,7 +92,7 @@ def write_blood_pressure_excel_file(
 
     file_path = get_output_file_path("blood_pressure", "xlsx")
     print(f'Write blood pressure Excel file to: "{file_path}"')
-    merged_blood_pressure_df.to_excel(file_path)
+    merged_blood_pressure_df.to_excel(file_path)  # pyright: ignore[reportUnknownMemberType]
 
 
 def write_all_other_excel_files(
@@ -115,7 +116,7 @@ def write_all_other_excel_files(
         record_name = type_identifier_to_name(record_type)
         file_path = get_output_file_path(record_name, "xlsx")
         print(f'Write {record_name.replace("_", " ")} Excel file to: "{file_path}"')
-        filtered_records_df.to_excel(file_path)
+        filtered_records_df.to_excel(file_path)  # pyright: ignore[reportUnknownMemberType]
 
 
 def main() -> int:
