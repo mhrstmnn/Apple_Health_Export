@@ -1,6 +1,6 @@
 [project]
 name = "apple-health-export"
-version = "0.0.1"
+version = "1.0.1"
 description = "Scripts to parse and convert Apple health data"
 readme = "README.md"
 requires-python = ">=3.14"
