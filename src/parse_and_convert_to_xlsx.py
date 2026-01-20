@@ -1,18 +1,16 @@
-#!/usr/bin/env python3
-
-import xml.etree.ElementTree as ET
-import pandas as pd
 import argparse
 import sys
+import xml.etree.ElementTree as ET
 
-import globals
+import pandas as pd
 
+from .globals import data_file_path, get_argparse_description, get_output_file_path
 
 pd.options.mode.copy_on_write = True
 
 
 def parse_health_export() -> tuple[pd.DataFrame, list[str]]:
-    tree = ET.parse(globals.data_file_path)
+    tree = ET.parse(data_file_path)
     root = tree.getroot()
 
     records = [element.attrib for element in root.iter('Record')]
@@ -47,7 +45,7 @@ def write_all_records_excel_file(records_df: pd.DataFrame, rearranged=False):
     filename = 'all_records'
     if rearranged:
         filename += '_rearranged'
-    file_path = globals.get_output_file_path(filename, 'xlsx')
+    file_path = get_output_file_path(filename, 'xlsx')
     print(f'Write all records Excel file to: "{file_path}"')
     records_df.to_excel(file_path)
 
@@ -65,7 +63,7 @@ def write_blood_pressure_excel_file(rearranged_records_df: pd.DataFrame, reduce_
     merged_blood_pressure_df = pd.merge(blood_pressure_systolic_df, blood_pressure_diastolic_df, on='creationDate')
     merged_blood_pressure_df.rename(columns={'value_x': 'valueSystolic', 'value_y': 'valueDiastolic'}, inplace=True)
 
-    file_path = globals.get_output_file_path('blood_pressure', 'xlsx')
+    file_path = get_output_file_path('blood_pressure', 'xlsx')
     print(f'Write blood pressure Excel file to: "{file_path}"')
     merged_blood_pressure_df.to_excel(file_path)
 
@@ -84,13 +82,13 @@ def write_all_other_excel_files(record_types: list[str], rearranged_records_df: 
             filtered_records_df.drop(columns='unit', inplace=True)
 
         record_name = type_identifier_to_name(record_type)
-        file_path = globals.get_output_file_path(record_name, 'xlsx')
+        file_path = get_output_file_path(record_name, 'xlsx')
         print(f'Write {record_name.replace('_', ' ')} Excel file to: "{file_path}"')
         filtered_records_df.to_excel(file_path)
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=globals.get_argparse_description('Excel files'), formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(description=get_argparse_description('Excel files'), formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('-p', '--print-types', help='whether all record types should be printed', action='store_true')
     parser.add_argument('-o', '--one-file', help='whether all records should be written to one Excel file', action='store_true')
     parser.add_argument('-s', '--separate-files', help='whether all records should be written to separate Excel files', action='store_true')
