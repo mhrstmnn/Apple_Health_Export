@@ -25,22 +25,22 @@ def parse_health_export() -> tuple[list[dict[str, str]], list[str]]:
     return records, record_types
 
 
-def print_all_record_types(record_types: list[str]):
+def print_all_record_types(record_types: list[str]) -> None:
     print(json.dumps(record_types, indent=JSON_INDENT))
 
 
-def write_all_records_json_file(records: list[dict[str, str]]):
+def write_all_records_json_file(records: list[dict[str, str]]) -> None:
     with open(get_output_file_path("all_records", "json", "jq"), "w") as json_file:
         json_file.write(json.dumps(records, indent=JSON_INDENT) + "\n")
 
 
-def write_all_records_txt_file(records: list[dict[str, str]]):
+def write_all_records_txt_file(records: list[dict[str, str]]) -> None:
     with open(get_output_file_path("all_records", "txt", "jq"), "w") as txt_file:
         for record in records:
             txt_file.write(json.dumps(record) + "\n")
 
 
-def write_all_records_csv_file_with_jq():
+def write_all_records_csv_file_with_jq() -> None:
     cat_command = f"cat {get_output_file_path('all_records', 'txt', 'jq')}"
     jq_command = 'jq -r "[.type, .creationDate, .startDate, .endDate, .value, .unit, .device, .sourceName, .sourceVersion] | @csv"'
     output_file_path = get_output_file_path("all_records", "csv", "jq")
