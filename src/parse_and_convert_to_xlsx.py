@@ -45,12 +45,7 @@ def type_identifier_to_name(type_identifier: str) -> str:
 
 def print_all_record_types(record_types: list[str]):
     for count, record_type in enumerate(record_types):
-        print(
-            str(count + 1) + ":",
-            record_type,
-            "->",
-            type_identifier_to_name(record_type),
-        )
+        print(f"{count + 1}: {record_type} -> {type_identifier_to_name(record_type)}")
 
 
 def write_all_records_excel_file(records_df: pd.DataFrame, rearranged: bool = False):
