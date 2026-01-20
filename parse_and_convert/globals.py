@@ -19,7 +19,7 @@ def get_output_file_path(
 def get_argparse_description(output_description: str) -> str:
     return "\n".join(
         [
-            "this is one of two scripts to parse and convert health data after exporting it from Apple's Health app:",
-            f'this script parses an XML file ("{DATA_FILE_PATH}") and converts it into {output_description}',
+            "This is one of two scripts to parse and convert health data after exporting it from Apple's Health app.",
+            f'This script parses an XML file ("{DATA_FILE_PATH}") and converts it into {output_description}.',
         ]
     )
