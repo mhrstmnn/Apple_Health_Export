@@ -6,19 +6,20 @@ Scripts to parse and convert health data after exporting it from Apple's Health 
 
 - A somewhat modern version of [Python](https://www.python.org)
 - If you want to use it in the CSV script: [jq](https://jqlang.github.io/jq/)
-- Shell scripts were written for the [Zsh](https://www.zsh.org)
 
 ## Installation
 
+- [Install uv](https://docs.astral.sh/uv/getting-started/installation/) if necessary
 - Clone this repository from GitHub
-- Then run: `./pip_install.sh`
 
 ## Usage
 
 - First export all of your health data from Apple's Health app
 - Then unpack the exported ZIP archive
-- Copy the `Export.xml` file to the `data` directory
-- Run one of the two scripts that start with `parse_and_convert`
+- Copy the `Export.xml` file to the `data` directory in this repository
+- Now you can run one of the two scripts:
+  - `uv run -m parse_and_convert.to_json_and_csv`
+  - `uv run -m parse_and_convert.to_xlsx`
 
 ## Helpful
 
