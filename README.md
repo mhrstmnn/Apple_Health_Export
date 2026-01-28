@@ -18,8 +18,8 @@ Scripts to parse and convert health data after exporting it from Apple's Health 
 - Then unpack the exported ZIP archive
 - Copy the `Export.xml` file to the `data` directory in this repository
 - Now you can run one of the two scripts:
-  - `uv run -m parse_and_convert.to_json_and_csv`
-  - `uv run -m parse_and_convert.to_xlsx`
+  - `uv run --no-dev -m parse_and_convert.to_json_and_csv`
+  - `uv run --no-dev -m parse_and_convert.to_xlsx`
 
 ## Helpful
 
